@@ -1,9 +1,8 @@
 const quoteContainer = document.getElementsByClassName('expressionGenerator')
 const quoteText = document.getElementById('quote')
 const authorText = document.getElementsByClassName('author')
-const twitterBtn = document.getElementsByClassName('twitter')
-const newQuoteBtn = document.getElementsByClassName('new-quote')
-
+const twitterBtn = document.getElementById('twitter')
+const newQuoteBtn = document.getElementById('id-quote')
 
 async function getQuote() {
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=ru&format=json';
@@ -35,11 +34,17 @@ function tweetQuote() {
     window.open(twitterUrl, '_blank')
 }
 
-newQuoteBtn.addEventListner('click', getQuote())
-twitterBtn.addEventListner('click', tweetQuote())
 
 //start
 
-setInterval(
+newQuoteBtn.addEventListener('click', () => {
+    console.log('work')
     getQuote()
-), 1000
+})
+twitterBtn.addEventListener('click', () => {
+    console.log('work')
+    tweetQuote()
+})
+
+getQuote()
+
