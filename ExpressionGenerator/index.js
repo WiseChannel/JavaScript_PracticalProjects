@@ -1,17 +1,31 @@
-const quoteContainer = document.getElementsByClassName('expressionGenerator')
+const quoteContainer = document.getElementById('expressionGenerator')
 const quoteText = document.getElementById('quote')
 const authorText = document.getElementsByClassName('author')
 const twitterBtn = document.getElementById('twitter')
 const newQuoteBtn = document.getElementById('id-quote')
+const loader = document.getElementById('loader')
+
+function loading() {
+    loader.hidden = false
+    quoteContainer.hidden = true
+}
+
+function complete() {
+    if (!loader.hidden) {
+        quoteContainer.hidden = false
+        loader.hidden = true
+    }
+}
 
 async function getQuote() {
+    loading()
     const apiUrl = 'http://api.forismatic.com/api/1.0/?method=getQuote&lang=ru&format=json';
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/'
     try {
         const result = await  fetch(proxyUrl + apiUrl)
         const data = await result.json()
         if (data.quoteAuthor === '') {
-            authorText.innerText = 'Unknow'
+            authorText.innerText = 'Unknown'
         } else {
             authorText.innerText = data.quoteAuthor
         }
@@ -21,6 +35,7 @@ async function getQuote() {
             quoteText.classList.remove('long-quote')
         }
         quoteText.innerText = data.quoteText;
+        complete()
     } catch(e) {
         getQuote()
         console.log("Error: ", e)
