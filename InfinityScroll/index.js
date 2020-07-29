@@ -1,5 +1,6 @@
 const imageContainer = document.getElementById('image-container')
 const loader = document.getElementById('loader')
+const updateButton = document.getElementById('update-button')
 
 let ready = false
 let imagesLoaded = 0
@@ -9,6 +10,7 @@ let photosArray = [];
 const count = 30;
 const apiKey = 'jFgS8tteGD425f4oZfygQVaVnD6gt6GucN2yyz3xFek';
 const apiUrl = `https://api.unsplash.com/photos/random?client_id=${apiKey}&count=${count}`;
+
 
 function imageLoaded() {
     imagesLoaded++;
@@ -61,6 +63,10 @@ async function getPhoto() {
         console.log(e)
     }
 }
+
+updateButton.addEventListener('click', () => {
+    location.reload()
+})
 
 window.addEventListener('scroll', () => {
     console.log('Scroll')
